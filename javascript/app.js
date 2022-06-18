@@ -9,27 +9,40 @@ GAME RULES:
 
 */
 
-let roundScore, scores, activePlayer, gameState;
+let roundScore, scores, activePlayer, gameState,is_six;
 Init();
 
 
 // Roll dice function
 document.querySelector('.btn-roll').addEventListener('click', function(){
    if (gameState){
-        let dice = Math.floor(Math.random() * 6) + 1 ;
+        // let dice = Math.floor(Math.random() * 6) + 1 ;
+        let dice = 6;
         diceDOM = document.querySelector('.dice');
         diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + dice + '.png'
+        diceDOM.src = '../images/dice-' + dice + '.png'
 
-        // if NOT 1 add to to current score
-        if (dice !== 1){
-            roundScore += dice ;
-            document.querySelector('#current-' + activePlayer).textContent = roundScore;
-        }else{
-
-        nextplayer();
+        is_six.push(dice)
+        if (is_six.length === 2){
+             if (is_six[0]===6 && is_six[1] === 6){
+                document.querySelector('#score-' + activePlayer).textContent = '0';
+                document.querySelector('#current-' + activePlayer).textContent = '0';
+                is_six = [];
+                nextplayer();
+             };
         }
-    }
+        else{
+             // if NOT 1 add to to current score
+                if (dice !== 1){
+                    roundScore += dice ;
+                    document.querySelector('#current-' + activePlayer).textContent = roundScore;
+                }else{
+
+                nextplayer();
+                }
+            };
+        };
+       
    
     });
 
@@ -70,6 +83,7 @@ function Init(){
     roundScore = 0;
     scores = [0,0];
     gameState = true;
+    is_six = [];
 
 
     // Reset all scores to Zero
