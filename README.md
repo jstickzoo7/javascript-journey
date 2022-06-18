@@ -1,1 +1,2 @@
-My first javascript project git 
+# my first javascript mock project
+
